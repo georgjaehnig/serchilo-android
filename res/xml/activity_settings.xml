@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <EditTextPreference
+        android:dialogTitle="@string/pref_user_name_title"
+        android:key="user_name"
+        android:summary="@string/pref_user_name_summary"
+        android:defaultValue="@string/pref_user_name_default_value"
+        android:title="@string/pref_user_name_title" />
+
+    <ListPreference
+        android:dialogTitle="@string/pref_language_namespace_title"
+        android:entries="@array/pref_language_namespace_entries"
+        android:entryValues="@array/pref_language_namespace_values"
+        android:key="language_namespace"
+        android:title="@string/pref_language_namespace_title" />
+    <ListPreference
+        android:dialogTitle="@string/pref_country_namespace_title"
+        android:entries="@array/pref_country_namespace_entries"
+        android:entryValues="@array/pref_country_namespace_values"
+        android:key="country_namespace"
+        android:title="@string/pref_country_namespace_title" />
+
+    <EditTextPreference
+        android:dialogTitle="@string/pref_custom_namespaces_title"
+        android:key="custom_namespaces"
+        android:summary="@string/pref_custom_namespaces_summary"
+        android:title="@string/pref_custom_namespaces_title" />
+    <EditTextPreference
+        android:defaultValue="@string/pref_default_keyword_default_value"
+        android:dialogTitle="@string/pref_default_keyword_title"
+        android:key="default_keyword"
+        android:summary="@string/pref_default_keyword_summary"
+        android:title="@string/pref_default_keyword_title" />
+
+</PreferenceScreen>

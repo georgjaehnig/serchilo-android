@@ -1,0 +1,315 @@
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent" android:layout_height="match_parent">
+    
+<RelativeLayout 
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"	
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context=".MainActivity" >
+
+    <EditText
+        android:id="@+id/searchInput"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="70dp"
+        android:ems="10"
+        android:hint="@string/hintSearchInput"
+        android:imeOptions="actionGo"
+        android:singleLine="true" />
+
+    <Button
+        android:id="@+id/searchSubmit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/searchInput"
+        android:layout_alignBottom="@+id/searchInput"
+        android:layout_alignParentRight="true"
+        android:text="@string/submitButton" />
+ 
+    <TextView
+        android:id="@+id/textView1"
+        android:layout_width="50dp"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/searchInput1"
+        android:gravity="right"
+        android:text="foo"           
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        />
+    
+    
+   <EditText
+        android:imeOptions="actionGo"
+       android:singleLine="true"
+        android:id="@+id/searchInput1"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/hintSearchInputX"
+        android:layout_alignRight="@+id/searchInput"
+        android:layout_below="@+id/searchInput"
+        android:layout_marginLeft="50dp"
+        android:ems="10" />
+
+    <Button
+        android:id="@+id/searchSubmit1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/searchInput1"
+        android:layout_below="@+id/searchSubmit"
+        android:layout_alignParentRight="true"
+        android:text="@string/submitButton" />
+ 
+   <TextView
+        android:id="@+id/textView2"
+        android:layout_width="50dp"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/searchInput2"
+        android:gravity="right"
+        android:text="foo"           
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        />
+    
+   <EditText
+        android:imeOptions="actionGo"
+       android:singleLine="true"
+        android:id="@+id/searchInput2"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/hintSearchInputX"
+        android:layout_alignRight="@+id/searchInput"
+        android:layout_below="@+id/searchInput1"
+        android:layout_marginLeft="50dp"
+        android:ems="10" />
+
+   <Button
+        android:id="@+id/searchSubmit2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/searchInput2"
+        android:layout_below="@+id/searchSubmit1"
+        android:layout_alignParentRight="true"
+        android:text="@string/submitButton" />
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="50dp"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/searchInput3"
+        android:gravity="right"
+        android:text="foo"           
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        />
+    
+   <EditText
+        android:imeOptions="actionGo"
+       android:singleLine="true"
+        android:id="@+id/searchInput3"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/hintSearchInputX"
+        android:layout_alignRight="@+id/searchInput"
+        android:layout_below="@+id/searchInput2"
+        android:layout_marginLeft="50dp"
+        android:ems="10" />
+
+   <Button
+        android:id="@+id/searchSubmit3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/searchInput3"
+        android:layout_below="@+id/searchSubmit2"
+        android:layout_alignParentRight="true"
+        android:text="@string/submitButton" />
+
+     <TextView
+        android:id="@+id/textView4"
+        android:layout_width="50dp"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/searchInput4"
+        android:gravity="right"
+        android:text="foo"           
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        />
+    
+   <EditText
+        android:imeOptions="actionGo"
+       android:singleLine="true"
+        android:id="@+id/searchInput4"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/hintSearchInputX"
+        android:layout_alignRight="@+id/searchInput"
+        android:layout_below="@+id/searchInput3"
+        android:layout_marginLeft="50dp"
+        android:ems="10" />
+
+   <Button
+        android:id="@+id/searchSubmit4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/searchInput4"
+        android:layout_below="@+id/searchSubmit3"
+        android:layout_alignParentRight="true"
+        android:text="@string/submitButton" />
+   
+     <TextView
+        android:id="@+id/textView5"
+        android:layout_width="50dp"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/searchInput5"
+        android:gravity="right"
+        android:text="foo"           
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        />
+    
+   <EditText
+        android:imeOptions="actionGo"
+       android:singleLine="true"
+        android:id="@+id/searchInput5"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/hintSearchInputX"
+        android:layout_alignRight="@+id/searchInput"
+        android:layout_below="@+id/searchInput4"
+        android:layout_marginLeft="50dp"
+        android:ems="10" />
+
+   <Button
+        android:id="@+id/searchSubmit5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/searchInput5"
+        android:layout_below="@+id/searchSubmit4"
+        android:layout_alignParentRight="true"
+        android:text="@string/submitButton" />
+   
+     <TextView
+        android:id="@+id/textView6"
+        android:layout_width="50dp"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/searchInput6"
+        android:gravity="right"
+        android:text="foo"           
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        />
+    
+   <EditText
+        android:imeOptions="actionGo"
+       android:singleLine="true"
+        android:id="@+id/searchInput6"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/hintSearchInputX"
+        android:layout_alignRight="@+id/searchInput"
+        android:layout_below="@+id/searchInput5"
+        android:layout_marginLeft="50dp"
+        android:ems="10" />
+
+   <Button
+        android:id="@+id/searchSubmit6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/searchInput6"
+        android:layout_below="@+id/searchSubmit5"
+        android:layout_alignParentRight="true"
+        android:text="@string/submitButton" />
+   
+     <TextView
+        android:id="@+id/textView7"
+        android:layout_width="50dp"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/searchInput7"
+        android:gravity="right"
+        android:text="foo"           
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        />
+    
+   <EditText
+        android:imeOptions="actionGo"
+       android:singleLine="true"
+        android:id="@+id/searchInput7"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/hintSearchInputX"
+        android:layout_alignRight="@+id/searchInput"
+        android:layout_below="@+id/searchInput6"
+        android:layout_marginLeft="50dp"
+        android:ems="10" />
+
+   <Button
+        android:id="@+id/searchSubmit7"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/searchInput7"
+        android:layout_below="@+id/searchSubmit6"
+        android:layout_alignParentRight="true"
+        android:text="@string/submitButton" />
+
+     <TextView
+        android:id="@+id/textView8"
+        android:layout_width="50dp"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/searchInput8"
+        android:gravity="right"
+        android:text="foo"           
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        />
+    
+   <EditText
+        android:imeOptions="actionGo"
+       android:singleLine="true"
+        android:id="@+id/searchInput8"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/hintSearchInputX"
+        android:layout_alignRight="@+id/searchInput"
+        android:layout_below="@+id/searchInput7"
+        android:layout_marginLeft="50dp"
+        android:ems="10" />
+
+   <Button
+        android:id="@+id/searchSubmit8"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/searchInput8"
+        android:layout_below="@+id/searchSubmit7"
+        android:layout_alignParentRight="true"
+        android:text="@string/submitButton" />
+   
+     <TextView
+        android:id="@+id/textView9"
+        android:layout_width="50dp"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/searchInput9"
+        android:gravity="right"
+        android:text="foo"           
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        />
+    
+   <EditText
+        android:imeOptions="actionGo"
+       android:singleLine="true"
+        android:id="@+id/searchInput9"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/hintSearchInputX"
+        android:layout_alignRight="@+id/searchInput"
+        android:layout_below="@+id/searchInput8"
+        android:layout_marginLeft="50dp"
+        android:ems="10" />
+
+   <Button
+        android:id="@+id/searchSubmit9"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/searchInput9"
+        android:layout_below="@+id/searchSubmit8"
+        android:layout_alignParentRight="true"
+        android:text="@string/submitButton" />
+   
+   
+</RelativeLayout>
+</ScrollView>
