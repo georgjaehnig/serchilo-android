@@ -17,6 +17,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.RelativeLayout;
+import android.widget.RelativeLayout.LayoutParams;
 import android.widget.TextView;
 
 public class MainActivity extends Activity {
@@ -32,7 +34,20 @@ public class MainActivity extends Activity {
 		searchInput = (TextView) findViewById(R.id.searchInput);
 
 		searchSubmit = (Button) findViewById(R.id.searchSubmit);
+		
+	    RelativeLayout linear=(RelativeLayout) findViewById(R.id.relativeLayout);
 
+		TextView tv1 = new TextView(this);
+        tv1.setText("foobar");
+        LayoutParams params = new LayoutParams(
+        	LayoutParams.WRAP_CONTENT, 
+        	LayoutParams.WRAP_CONTENT
+        );
+        params.addRule(RelativeLayout.RIGHT_OF, R.id.textViewLabelNamespaces);
+
+        tv1.setLayoutParams(params);
+        linear.addView(tv1);
+        
 		searchSubmit.setOnClickListener(new OnClickListener() {
 			public void onClick(View v) {
 				handleSubmitClick(v);
