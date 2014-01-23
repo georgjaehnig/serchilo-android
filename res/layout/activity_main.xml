@@ -16,8 +16,8 @@
         android:id="@+id/textViewLabelNamespaces"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:padding="2dp"
-        android:layout_marginRight="2dp"
+        android:padding="5px"
+        android:layout_marginRight="5px"
         android:text="Username:" />
     
     
@@ -25,8 +25,8 @@
         android:id="@+id/searchInput"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:layout_marginRight="70dp"
+        android:layout_marginTop="20px"
+        android:layout_marginRight="120px"
         android:layout_below="@+id/textViewLabelNamespaces"
         android:ems="10"
         android:hint="@string/hintSearchInput"

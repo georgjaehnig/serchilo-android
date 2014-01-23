@@ -39,6 +39,7 @@ public class MainActivity extends Activity {
 
 		TextView tv1 = new TextView(this);
         tv1.setText("foobar");
+        tv1.setPadding(5, 5, 5, 5);
         LayoutParams params = new LayoutParams(
         	LayoutParams.WRAP_CONTENT, 
         	LayoutParams.WRAP_CONTENT
