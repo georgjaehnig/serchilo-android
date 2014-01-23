@@ -32,23 +32,37 @@ public class MainActivity extends Activity {
 		setContentView(R.layout.activity_main);
 
 		searchInput = (TextView) findViewById(R.id.searchInput);
-
 		searchSubmit = (Button) findViewById(R.id.searchSubmit);
 		
 	    RelativeLayout linear=(RelativeLayout) findViewById(R.id.relativeLayout);
 
-		TextView tv1 = new TextView(this);
-        tv1.setText("foobar");
-        tv1.setPadding(5, 5, 5, 5);
-        LayoutParams params = new LayoutParams(
-        	LayoutParams.WRAP_CONTENT, 
-        	LayoutParams.WRAP_CONTENT
-        );
-        params.addRule(RelativeLayout.RIGHT_OF, R.id.textViewLabelNamespaces);
+	    ArrayList<TextView> tvNamespaces = new ArrayList<TextView>();
+	    for (int i=0; i<2; i++) {
+	    	tvNamespaces.add(new TextView(this));
+	    	tvNamespaces.get(i).setId(i+1);
+	    	tvNamespaces.get(i).setText("foobar" + String.valueOf(i) );
+	    	tvNamespaces.get(i).setPadding(5, 5, 5, 5);
+	    	
+	        LayoutParams params = new LayoutParams(
+            	LayoutParams.WRAP_CONTENT, 
+            	LayoutParams.WRAP_CONTENT
+            );
+	        
+        	// for the first textView
+	        if (i==0) {
+	        	// place it right to the label
+        		params.addRule(RelativeLayout.RIGHT_OF, R.id.textViewLabelNamespaces);
+        	}
+        	else {
+        		// place it right to the previous item
+        		Log.d("serchilo", String.valueOf(tvNamespaces.get(i-1).getId()));        		
+        		//Log.d("serchilo", "foo");        		
+        		params.addRule(RelativeLayout.RIGHT_OF, tvNamespaces.get(i-1).getId());	
+        	}
+            tvNamespaces.get(i).setLayoutParams(params);
+            linear.addView(tvNamespaces.get(i));	    	
+	    }
 
-        tv1.setLayoutParams(params);
-        linear.addView(tv1);
-        
 		searchSubmit.setOnClickListener(new OnClickListener() {
 			public void onClick(View v) {
 				handleSubmitClick(v);
