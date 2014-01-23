@@ -11,11 +11,52 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context=".MainActivity" >
 
+    <TextView
+        android:id="@+id/textViewUsageType"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="2dp"
+        android:layout_marginRight="2dp"
+        android:text="n" />
+    
+    <TextView
+        android:id="@+id/textViewSlash"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@+id/textViewUsageType"
+        android:padding="2dp"
+        android:layout_marginRight="2dp"
+        android:text="/" />
+    
+    <TextView       
+        android:id="@+id/textViewNamespace1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@+id/textViewSlash"
+        android:layout_marginRight="2dp"
+        android:background="#AA2C30"
+        android:textColor="#FFFFFF"
+        android:padding="2dp"
+        android:text="de" />
+
+    <TextView       
+        android:id="@+id/textViewNamespace2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@+id/textViewNamespace1"
+        android:layout_marginRight="2dp"
+        android:background="#AA2C30"
+        android:textColor="#FFFFFF"
+        android:padding="2dp"
+        android:text="deu" />   
+    
     <EditText
         android:id="@+id/searchInput"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
         android:layout_marginRight="70dp"
+        android:layout_below="@+id/textViewUsageType"
         android:ems="10"
         android:hint="@string/hintSearchInput"
         android:imeOptions="actionGo"
@@ -29,6 +70,7 @@
         android:layout_alignBottom="@+id/searchInput"
         android:layout_alignParentRight="true"
         android:text="@string/submitButton" />
-   
+    
+
 </RelativeLayout>
 </ScrollView>
