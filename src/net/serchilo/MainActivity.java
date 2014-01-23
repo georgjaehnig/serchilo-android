@@ -42,7 +42,8 @@ public class MainActivity extends Activity {
 	    	tvNamespaces.get(i).setId(i+1);
 	    	tvNamespaces.get(i).setText("foobar" + String.valueOf(i) );
 	    	tvNamespaces.get(i).setPadding(5, 5, 5, 5);
-	    	
+	    	tvNamespaces.get(i).setBackgroundColor(0xFFAA2C30);
+	    	tvNamespaces.get(i).setTextColor(0xFFFFFFFF);
 	        LayoutParams params = new LayoutParams(
             	LayoutParams.WRAP_CONTENT, 
             	LayoutParams.WRAP_CONTENT
@@ -59,7 +60,9 @@ public class MainActivity extends Activity {
         		//Log.d("serchilo", "foo");        		
         		params.addRule(RelativeLayout.RIGHT_OF, tvNamespaces.get(i-1).getId());	
         	}
-            tvNamespaces.get(i).setLayoutParams(params);
+	        // set right margin;
+    		params.setMargins(0, 0, 5, 0);
+	        tvNamespaces.get(i).setLayoutParams(params);
             linear.addView(tvNamespaces.get(i));	    	
 	    }
 
