@@ -11,6 +11,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
+import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.Menu;
@@ -26,7 +27,9 @@ public class MainActivity extends Activity {
 
 	TextView searchInput;
 	Button searchSubmit;
-
+	
+	OnSharedPreferenceChangeListener sharedPreferenceChangeListener;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -35,59 +38,8 @@ public class MainActivity extends Activity {
 		searchInput = (TextView) findViewById(R.id.searchInput);
 		searchSubmit = (Button) findViewById(R.id.searchSubmit);
 		
-		SharedPreferences pref = PreferenceManager
-				.getDefaultSharedPreferences(this);
-
-		String userName = pref.getString("user_name", "");
-				
-		if (userName != "") {
-			displayUsername(userName);
-		}
-		else {
-			displayNamespaces(
-				pref.getString("language_namespace", ""),	
-				pref.getString("country_namespace", ""),	
-				pref.getString("custom_namespaces", "")	
-			);
-		}
-			
-
+		updateContextDisplay();
 		
-		/*
-		if (userName == "") {
-			
-		RelativeLayout linear=(RelativeLayout) findViewById(R.id.relativeLayout);
-
-	    ArrayList<TextView> tvNamespaces = new ArrayList<TextView>();
-	    for (int i=0; i<2; i++) {
-	    	tvNamespaces.add(new TextView(this));
-	    	tvNamespaces.get(i).setId(i+1);
-	    	tvNamespaces.get(i).setText("foobar" + String.valueOf(i) );
-	    	setNamespaceStyles(tvNamespaces.get(i));
-	        LayoutParams params = new LayoutParams(
-            	LayoutParams.WRAP_CONTENT, 
-            	LayoutParams.WRAP_CONTENT
-            );
-	        
-        	// for the first textView
-	        if (i==0) {
-	        	// place it right to the label
-        		params.addRule(RelativeLayout.RIGHT_OF, R.id.textViewLabelNamespaces);
-        	}
-        	else {
-        		// place it right to the previous item
-        		Log.d("serchilo", String.valueOf(tvNamespaces.get(i-1).getId()));        		
-        		//Log.d("serchilo", "foo");        		
-        		params.addRule(RelativeLayout.RIGHT_OF, tvNamespaces.get(i-1).getId());	
-        	}
-	        // set right margin;
-    		params.setMargins(0, 0, 5, 0);
-	        tvNamespaces.get(i).setLayoutParams(params);
-            linear.addView(tvNamespaces.get(i));	    	
-	    }
-
-		}
-*/
 		searchSubmit.setOnClickListener(new OnClickListener() {
 			public void onClick(View v) {
 				handleSubmitClick(v);
@@ -104,11 +56,49 @@ public class MainActivity extends Activity {
 					}
 				});
 
+		// updateContextDisplay when preferences changed
+		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
+		sharedPreferenceChangeListener = new SharedPreferences.OnSharedPreferenceChangeListener() {
+			 public void onSharedPreferenceChanged(SharedPreferences prefs, String key) {
+				Log.d("serchilo", "onSharedPreferenceChanged inside");
+				updateContextDisplay();
+			}
+		};
+		
+		prefs.registerOnSharedPreferenceChangeListener(sharedPreferenceChangeListener);
 
 		setDefaultSettings();
 	}
+	/*
+//	protected void onSharedPreferenceChanged(Bundle savedInstanceState) {
+	protected void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
+		Log.d("serchilo", "onSharedPreferenceChanged");
+		updateContextDisplay();
+	}
+*/
+	public void updateContextDisplay() {
+		
+		SharedPreferences pref = PreferenceManager
+				.getDefaultSharedPreferences(this);
 
+		String userName = pref.getString("user_name", "");
+				
+		if (userName != "") {
+			displayUsername(userName);
+		}
+		else {
+			displayNamespaces(
+				pref.getString("language_namespace", ""),	
+				pref.getString("country_namespace", ""),	
+				pref.getString("custom_namespaces", "")	
+			);
+		}
+	}
+	
 	private void displayUsername(String userName) {
+		TextView tvNamespacesLabel = (TextView) findViewById(R.id.textViewLabelNamespaces);
+		tvNamespacesLabel.setText("Username:");
+		
 		RelativeLayout linear=(RelativeLayout) findViewById(R.id.relativeLayout);
 		TextView tvNamespace = new TextView(this);
 		tvNamespace.setText(userName);
@@ -122,9 +112,12 @@ public class MainActivity extends Activity {
 		tvNamespace.setLayoutParams(params);
     	linear.addView(tvNamespace);
 	}
-
+	
 	private void displayNamespaces(String languageNamespace, String countryNamespace, String customNamespacesString) {
 
+		TextView tvNamespacesLabel = (TextView) findViewById(R.id.textViewLabelNamespaces);
+		tvNamespacesLabel.setText("Namespaces:");
+		
 		customNamespacesString = customNamespacesString.trim();
 				
 		String[] customNamespaces = new String[0];
@@ -136,8 +129,35 @@ public class MainActivity extends Activity {
 
 	    namespaces.add(0, languageNamespace);		
 	    namespaces.add(1, countryNamespace);
-	    Log.d("serchilo", namespaces.toString());
-	    
+			
+		RelativeLayout linear=(RelativeLayout) findViewById(R.id.relativeLayout);
+
+	    ArrayList<TextView> tvNamespaces = new ArrayList<TextView>();
+	    for (int i=0; i<namespaces.size() ; i++) {
+	    	tvNamespaces.add(new TextView(this));
+	    	tvNamespaces.get(i).setId(i+1);
+	    	tvNamespaces.get(i).setText(namespaces.get(i));
+	    	setNamespaceStyles(tvNamespaces.get(i));
+	        LayoutParams params = new LayoutParams(
+            	LayoutParams.WRAP_CONTENT, 
+            	LayoutParams.WRAP_CONTENT
+            );
+	        
+        	// for the first textView
+	        if (i==0) {
+	        	// place it right to the label
+        		params.addRule(RelativeLayout.RIGHT_OF, R.id.textViewLabelNamespaces);
+        	}
+        	else {
+        		// place it right to the previous item
+        		params.addRule(RelativeLayout.RIGHT_OF, tvNamespaces.get(i-1).getId());	
+        	}
+	        // set right margin;
+    		params.setMargins(0, 0, 5, 0);
+	        tvNamespaces.get(i).setLayoutParams(params);
+            linear.addView(tvNamespaces.get(i));	    	
+	    }
+	    	    
 	}
 
 	
