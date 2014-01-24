@@ -1,6 +1,7 @@
 package net.serchilo;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Locale;
 
 import android.net.Uri;
@@ -34,16 +35,35 @@ public class MainActivity extends Activity {
 		searchInput = (TextView) findViewById(R.id.searchInput);
 		searchSubmit = (Button) findViewById(R.id.searchSubmit);
 		
-	    RelativeLayout linear=(RelativeLayout) findViewById(R.id.relativeLayout);
+		SharedPreferences pref = PreferenceManager
+				.getDefaultSharedPreferences(this);
+
+		String userName = pref.getString("user_name", "");
+				
+		if (userName != "") {
+			displayUsername(userName);
+		}
+		else {
+			displayNamespaces(
+				pref.getString("language_namespace", ""),	
+				pref.getString("country_namespace", ""),	
+				pref.getString("custom_namespaces", "")	
+			);
+		}
+			
+
+		
+		/*
+		if (userName == "") {
+			
+		RelativeLayout linear=(RelativeLayout) findViewById(R.id.relativeLayout);
 
 	    ArrayList<TextView> tvNamespaces = new ArrayList<TextView>();
 	    for (int i=0; i<2; i++) {
 	    	tvNamespaces.add(new TextView(this));
 	    	tvNamespaces.get(i).setId(i+1);
 	    	tvNamespaces.get(i).setText("foobar" + String.valueOf(i) );
-	    	tvNamespaces.get(i).setPadding(5, 5, 5, 5);
-	    	tvNamespaces.get(i).setBackgroundColor(0xFFAA2C30);
-	    	tvNamespaces.get(i).setTextColor(0xFFFFFFFF);
+	    	setNamespaceStyles(tvNamespaces.get(i));
 	        LayoutParams params = new LayoutParams(
             	LayoutParams.WRAP_CONTENT, 
             	LayoutParams.WRAP_CONTENT
@@ -66,6 +86,8 @@ public class MainActivity extends Activity {
             linear.addView(tvNamespaces.get(i));	    	
 	    }
 
+		}
+*/
 		searchSubmit.setOnClickListener(new OnClickListener() {
 			public void onClick(View v) {
 				handleSubmitClick(v);
@@ -83,12 +105,49 @@ public class MainActivity extends Activity {
 				});
 
 
-		SharedPreferences pref = PreferenceManager
-				.getDefaultSharedPreferences(this);
-
 		setDefaultSettings();
 	}
 
+	private void displayUsername(String userName) {
+		RelativeLayout linear=(RelativeLayout) findViewById(R.id.relativeLayout);
+		TextView tvNamespace = new TextView(this);
+		tvNamespace.setText(userName);
+		setNamespaceStyles(tvNamespace);
+    	LayoutParams params = new LayoutParams(
+    		LayoutParams.WRAP_CONTENT, 
+    		LayoutParams.WRAP_CONTENT
+    	);
+    	params.setMargins(0, 0, 5, 0);
+		params.addRule(RelativeLayout.RIGHT_OF, R.id.textViewLabelNamespaces);
+		tvNamespace.setLayoutParams(params);
+    	linear.addView(tvNamespace);
+	}
+
+	private void displayNamespaces(String languageNamespace, String countryNamespace, String customNamespacesString) {
+
+		customNamespacesString = customNamespacesString.trim();
+				
+		String[] customNamespaces = new String[0];
+		if (customNamespacesString != "") {
+			customNamespaces = customNamespacesString.split("\\.");
+		}
+
+		ArrayList<String> namespaces = new ArrayList<String>(Arrays.asList(customNamespaces));			
+
+	    namespaces.add(0, languageNamespace);		
+	    namespaces.add(1, countryNamespace);
+	    Log.d("serchilo", namespaces.toString());
+	    
+	}
+
+	
+	private void setNamespaceStyles(TextView tvNamespace) {
+    	tvNamespace.setPadding(5, 5, 5, 5);
+    	tvNamespace.setBackgroundColor(0xFFAA2C30);
+    	tvNamespace.setTextColor(0xFFFFFFFF);		
+	}
+
+	
 	private void setDefaultSettings() {
 		SharedPreferences pref = PreferenceManager
 				.getDefaultSharedPreferences(this);
