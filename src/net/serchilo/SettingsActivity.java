@@ -1,13 +1,10 @@
 package net.serchilo;
 
-import java.util.Locale;
-
 import android.os.Bundle;
 import android.preference.EditTextPreference;
 import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.PreferenceActivity;
-import android.util.Log;
 
 public class SettingsActivity extends PreferenceActivity {
 
@@ -17,8 +14,8 @@ public class SettingsActivity extends PreferenceActivity {
 	EditTextPreference prefCustomNamespaces;
 	EditTextPreference prefDefaultKeyword;
 
-	@Override	
-	protected void onCreate(Bundle savedInstanceState) {	
+	@Override
+	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		addPreferencesFromResource(R.xml.activity_settings);
 
@@ -27,9 +24,9 @@ public class SettingsActivity extends PreferenceActivity {
 		prefCountryNamespace = (ListPreference) findPreference("country_namespace");
 		prefCustomNamespaces = (EditTextPreference) findPreference("custom_namespaces");
 		prefDefaultKeyword = (EditTextPreference) findPreference("default_keyword");
-		
+
 		// call this only when defaults set!
-		//probably enough to set username as empty string in xml
+		// probably enough to set username as empty string in xml
 		enableAndDisablePreferences(prefUserName.getText());
 
 		prefUserName
@@ -42,9 +39,9 @@ public class SettingsActivity extends PreferenceActivity {
 						return true;
 					}
 
-				});	
+				});
 	}
-	
+
 	protected void enableAndDisablePreferences(String userName) {
 
 		if (userName.equals("")) {
@@ -59,5 +56,5 @@ public class SettingsActivity extends PreferenceActivity {
 			prefDefaultKeyword.setEnabled(false);
 		}
 	}
-	
+
 }

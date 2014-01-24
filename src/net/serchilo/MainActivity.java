@@ -4,15 +4,14 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Locale;
 
-import android.net.Uri;
-import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
-import android.util.Log;
+import android.net.Uri;
+import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -27,9 +26,9 @@ public class MainActivity extends Activity {
 
 	TextView searchInput;
 	Button searchSubmit;
-	
+
 	OnSharedPreferenceChangeListener sharedPreferenceChangeListener;
-	
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -37,9 +36,9 @@ public class MainActivity extends Activity {
 
 		searchInput = (TextView) findViewById(R.id.searchInput);
 		searchSubmit = (Button) findViewById(R.id.searchSubmit);
-		
+
 		updateContextDisplay();
-		
+
 		searchSubmit.setOnClickListener(new OnClickListener() {
 			public void onClick(View v) {
 				handleSubmitClick(v);
@@ -57,69 +56,66 @@ public class MainActivity extends Activity {
 				});
 
 		// updateContextDisplay when preferences changed
-		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
+		SharedPreferences prefs = PreferenceManager
+				.getDefaultSharedPreferences(this);
 		sharedPreferenceChangeListener = new SharedPreferences.OnSharedPreferenceChangeListener() {
-			 public void onSharedPreferenceChanged(SharedPreferences prefs, String key) {
+			public void onSharedPreferenceChanged(SharedPreferences prefs,
+					String key) {
 				updateContextDisplay();
 			}
 		};
-		
+
 		prefs.registerOnSharedPreferenceChangeListener(sharedPreferenceChangeListener);
 
 		setDefaultSettings();
 	}
 
 	public void updateContextDisplay() {
-		
+
 		SharedPreferences pref = PreferenceManager
 				.getDefaultSharedPreferences(this);
 
 		String userName = pref.getString("user_name", "");
-				
+
 		if (userName != "") {
 			displayUsername(userName);
-		}
-		else {
-			displayNamespaces(
-				pref.getString("language_namespace", ""),	
-				pref.getString("country_namespace", ""),	
-				pref.getString("custom_namespaces", "")	
-			);
+		} else {
+			displayNamespaces(pref.getString("language_namespace", ""),
+					pref.getString("country_namespace", ""),
+					pref.getString("custom_namespaces", ""));
 		}
 	}
-	
+
 	private void displayUsername(String userName) {
 		TextView tvNamespacesLabel = (TextView) findViewById(R.id.textViewLabelNamespaces);
 		tvNamespacesLabel.setText("Username:");
-		
-		RelativeLayout linear=(RelativeLayout) findViewById(R.id.relativeLayout);
+
+		RelativeLayout linear = (RelativeLayout) findViewById(R.id.relativeLayout);
 		TextView tvNamespace = new TextView(this);
 		tvNamespace.setText(userName);
 		setNamespaceStyles(tvNamespace);
-    	LayoutParams params = new LayoutParams(
-    		LayoutParams.WRAP_CONTENT, 
-    		LayoutParams.WRAP_CONTENT
-    	);
-    	params.setMargins(0, 0, 5, 0);
+		LayoutParams params = new LayoutParams(LayoutParams.WRAP_CONTENT,
+				LayoutParams.WRAP_CONTENT);
+		params.setMargins(0, 0, 5, 0);
 		params.addRule(RelativeLayout.RIGHT_OF, R.id.textViewLabelNamespaces);
 		tvNamespace.setLayoutParams(params);
-    	linear.addView(tvNamespace);
+		linear.addView(tvNamespace);
 	}
-	
-	private void displayNamespaces(String languageNamespace, String countryNamespace, String customNamespacesString) {
+
+	private void displayNamespaces(String languageNamespace,
+			String countryNamespace, String customNamespacesString) {
 
 		TextView tvNamespacesLabel = (TextView) findViewById(R.id.textViewLabelNamespaces);
 		tvNamespacesLabel.setText("Namespaces:");
-		
-		ArrayList<String> namespaces = splitNamespaceString(customNamespacesString);			
 
-	    namespaces.add(0, languageNamespace);		
-	    namespaces.add(1, countryNamespace);
-		
+		ArrayList<String> namespaces = splitNamespaceString(customNamespacesString);
+
+		namespaces.add(0, languageNamespace);
+		namespaces.add(1, countryNamespace);
+
 		RelativeLayout relativeLayout = (RelativeLayout) findViewById(R.id.relativeLayout);
 		removeNamespaces(relativeLayout);
 		addNamespaces(relativeLayout, namespaces);
-	    	    
 	}
 
 	/**
@@ -128,64 +124,65 @@ public class MainActivity extends Activity {
 	 */
 	private ArrayList<String> splitNamespaceString(String customNamespacesString) {
 		customNamespacesString = customNamespacesString.trim();
-				
+
 		String[] customNamespaces = new String[0];
 		if (!customNamespacesString.isEmpty()) {
 			customNamespaces = customNamespacesString.split("\\.");
 		}
-		
-		ArrayList<String> namespaces = new ArrayList<String>(Arrays.asList(customNamespaces));
+
+		ArrayList<String> namespaces = new ArrayList<String>(
+				Arrays.asList(customNamespaces));
 		return namespaces;
 	}
+
 	private void addNamespaces(RelativeLayout relativeLayout,
 			ArrayList<String> namespaces) {
 		ArrayList<TextView> tvNamespaces = new ArrayList<TextView>();
-	    for (int i=0; i<namespaces.size() ; i++) {
-	    	tvNamespaces.add(new TextView(this));
-	    	tvNamespaces.get(i).setId(i+1);
-	    	tvNamespaces.get(i).setTag("namespace");
-	    	
-	    	tvNamespaces.get(i).setText(namespaces.get(i));
-	    	setNamespaceStyles(tvNamespaces.get(i));
-	        LayoutParams params = new LayoutParams(
-            	LayoutParams.WRAP_CONTENT, 
-            	LayoutParams.WRAP_CONTENT
-            );
-	        
-        	// for the first textView
-	        if (i==0) {
-	        	// place it right to the label
-        		params.addRule(RelativeLayout.RIGHT_OF, R.id.textViewLabelNamespaces);
-        	}
-        	else {
-        		// place it right to the previous item
-        		params.addRule(RelativeLayout.RIGHT_OF, tvNamespaces.get(i-1).getId());	
-        	}
-	        // set right margin;
-    		params.setMargins(0, 0, 5, 0);
-	        tvNamespaces.get(i).setLayoutParams(params);
-            relativeLayout.addView(tvNamespaces.get(i));	    	
-	    }
+		for (int i = 0; i < namespaces.size(); i++) {
+			tvNamespaces.add(new TextView(this));
+			tvNamespaces.get(i).setId(i + 1);
+			tvNamespaces.get(i).setTag("namespace");
+
+			tvNamespaces.get(i).setText(namespaces.get(i));
+			setNamespaceStyles(tvNamespaces.get(i));
+			LayoutParams params = new LayoutParams(LayoutParams.WRAP_CONTENT,
+					LayoutParams.WRAP_CONTENT);
+
+			// for the first textView
+			if (i == 0) {
+				// place it right to the label
+				params.addRule(RelativeLayout.RIGHT_OF,
+						R.id.textViewLabelNamespaces);
+			} else {
+				// place it right to the previous item
+				params.addRule(RelativeLayout.RIGHT_OF, tvNamespaces.get(i - 1)
+						.getId());
+			}
+			// set right margin;
+			params.setMargins(0, 0, 5, 0);
+			tvNamespaces.get(i).setLayoutParams(params);
+			relativeLayout.addView(tvNamespaces.get(i));
+		}
 	}
+
 	private void removeNamespaces(RelativeLayout relativeLayout) {
 
 		TextView tvNamespace;
 		do {
-			tvNamespace = (TextView) relativeLayout.findViewWithTag("namespace");
+			tvNamespace = (TextView) relativeLayout
+					.findViewWithTag("namespace");
 			if (tvNamespace != null) {
 				relativeLayout.removeView(tvNamespace);
 			}
 		} while (tvNamespace != null);
 	}
 
-	
 	private void setNamespaceStyles(TextView tvNamespace) {
-    	tvNamespace.setPadding(5, 5, 5, 5);
-    	tvNamespace.setBackgroundColor(0xFFAA2C30);
-    	tvNamespace.setTextColor(0xFFFFFFFF);		
+		tvNamespace.setPadding(5, 5, 5, 5);
+		tvNamespace.setBackgroundColor(0xFFAA2C30);
+		tvNamespace.setTextColor(0xFFFFFFFF);
 	}
 
-	
 	private void setDefaultSettings() {
 		SharedPreferences pref = PreferenceManager
 				.getDefaultSharedPreferences(this);
@@ -253,8 +250,7 @@ public class MainActivity extends Activity {
 				.getDefaultSharedPreferences(this);
 
 		String userName = pref.getString("user_name", "");
-		String languageNamespace = pref
-				.getString("language_namespace", "");
+		String languageNamespace = pref.getString("language_namespace", "");
 		String countryNamespace = pref.getString("country_namespace", "");
 		String customNamespaces = pref.getString("custom_namespaces", "");
 		String defaultKeyword = pref.getString("default_keyword", "");
