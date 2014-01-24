@@ -44,7 +44,7 @@ public class SettingsActivity extends PreferenceActivity {
 
 	protected void enableAndDisablePreferences(String userName) {
 
-		if (userName.equals("")) {
+		if (userName.isEmpty()) {
 			prefLanguageNamespace.setEnabled(true);
 			prefCountryNamespace.setEnabled(true);
 			prefCustomNamespaces.setEnabled(true);

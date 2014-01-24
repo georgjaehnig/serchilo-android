@@ -77,12 +77,12 @@ public class MainActivity extends Activity {
 
 		String userName = pref.getString("user_name", "");
 
-		if (userName != "") {
-			displayUsername(userName);
-		} else {
+		if (userName.isEmpty()) {
 			displayNamespaces(pref.getString("language_namespace", ""),
 					pref.getString("country_namespace", ""),
 					pref.getString("custom_namespaces", ""));
+		} else {
+			displayUsername(userName);
 		}
 	}
 
