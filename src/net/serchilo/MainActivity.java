@@ -111,14 +111,7 @@ public class MainActivity extends Activity {
 		TextView tvNamespacesLabel = (TextView) findViewById(R.id.textViewLabelNamespaces);
 		tvNamespacesLabel.setText("Namespaces:");
 		
-		customNamespacesString = customNamespacesString.trim();
-				
-		String[] customNamespaces = new String[0];
-		if (!customNamespacesString.isEmpty()) {
-			customNamespaces = customNamespacesString.split("\\.");
-		}
-		
-		ArrayList<String> namespaces = new ArrayList<String>(Arrays.asList(customNamespaces));			
+		ArrayList<String> namespaces = splitNamespaceString(customNamespacesString);			
 
 	    namespaces.add(0, languageNamespace);		
 	    namespaces.add(1, countryNamespace);
@@ -127,6 +120,22 @@ public class MainActivity extends Activity {
 		removeNamespaces(relativeLayout);
 		addNamespaces(relativeLayout, namespaces);
 	    	    
+	}
+
+	/**
+	 * @param customNamespacesString
+	 * @return
+	 */
+	private ArrayList<String> splitNamespaceString(String customNamespacesString) {
+		customNamespacesString = customNamespacesString.trim();
+				
+		String[] customNamespaces = new String[0];
+		if (!customNamespacesString.isEmpty()) {
+			customNamespaces = customNamespacesString.split("\\.");
+		}
+		
+		ArrayList<String> namespaces = new ArrayList<String>(Arrays.asList(customNamespaces));
+		return namespaces;
 	}
 	private void addNamespaces(RelativeLayout relativeLayout,
 			ArrayList<String> namespaces) {
