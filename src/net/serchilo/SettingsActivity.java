@@ -25,6 +25,10 @@ public class SettingsActivity extends PreferenceActivity {
 		prefCustomNamespaces = (EditTextPreference) findPreference("custom_namespaces");
 		prefDefaultKeyword = (EditTextPreference) findPreference("default_keyword");
 
+		prefUserName.getEditText().setSingleLine();
+		prefCustomNamespaces.getEditText().setSingleLine();
+		prefDefaultKeyword.getEditText().setSingleLine();
+
 		// call this only when defaults set!
 		// probably enough to set username as empty string in xml
 		enableAndDisablePreferences(prefUserName.getText());
