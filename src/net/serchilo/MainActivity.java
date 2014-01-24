@@ -60,7 +60,6 @@ public class MainActivity extends Activity {
 		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
 		sharedPreferenceChangeListener = new SharedPreferences.OnSharedPreferenceChangeListener() {
 			 public void onSharedPreferenceChanged(SharedPreferences prefs, String key) {
-				Log.d("serchilo", "onSharedPreferenceChanged inside");
 				updateContextDisplay();
 			}
 		};
@@ -69,13 +68,7 @@ public class MainActivity extends Activity {
 
 		setDefaultSettings();
 	}
-	/*
-//	protected void onSharedPreferenceChanged(Bundle savedInstanceState) {
-	protected void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
-		Log.d("serchilo", "onSharedPreferenceChanged");
-		updateContextDisplay();
-	}
-*/
+
 	public void updateContextDisplay() {
 		
 		SharedPreferences pref = PreferenceManager
@@ -121,21 +114,28 @@ public class MainActivity extends Activity {
 		customNamespacesString = customNamespacesString.trim();
 				
 		String[] customNamespaces = new String[0];
-		if (customNamespacesString != "") {
+		if (!customNamespacesString.isEmpty()) {
 			customNamespaces = customNamespacesString.split("\\.");
 		}
-
+		
 		ArrayList<String> namespaces = new ArrayList<String>(Arrays.asList(customNamespaces));			
 
 	    namespaces.add(0, languageNamespace);		
 	    namespaces.add(1, countryNamespace);
-			
-		RelativeLayout linear=(RelativeLayout) findViewById(R.id.relativeLayout);
-
-	    ArrayList<TextView> tvNamespaces = new ArrayList<TextView>();
+		
+		RelativeLayout relativeLayout = (RelativeLayout) findViewById(R.id.relativeLayout);
+		removeNamespaces(relativeLayout);
+		addNamespaces(relativeLayout, namespaces);
+	    	    
+	}
+	private void addNamespaces(RelativeLayout relativeLayout,
+			ArrayList<String> namespaces) {
+		ArrayList<TextView> tvNamespaces = new ArrayList<TextView>();
 	    for (int i=0; i<namespaces.size() ; i++) {
 	    	tvNamespaces.add(new TextView(this));
 	    	tvNamespaces.get(i).setId(i+1);
+	    	tvNamespaces.get(i).setTag("namespace");
+	    	
 	    	tvNamespaces.get(i).setText(namespaces.get(i));
 	    	setNamespaceStyles(tvNamespaces.get(i));
 	        LayoutParams params = new LayoutParams(
@@ -155,9 +155,18 @@ public class MainActivity extends Activity {
 	        // set right margin;
     		params.setMargins(0, 0, 5, 0);
 	        tvNamespaces.get(i).setLayoutParams(params);
-            linear.addView(tvNamespaces.get(i));	    	
+            relativeLayout.addView(tvNamespaces.get(i));	    	
 	    }
-	    	    
+	}
+	private void removeNamespaces(RelativeLayout relativeLayout) {
+
+		TextView tvNamespace;
+		do {
+			tvNamespace = (TextView) relativeLayout.findViewWithTag("namespace");
+			if (tvNamespace != null) {
+				relativeLayout.removeView(tvNamespace);
+			}
+		} while (tvNamespace != null);
 	}
 
 	
