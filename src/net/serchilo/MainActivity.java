@@ -90,16 +90,21 @@ public class MainActivity extends Activity {
 		TextView tvNamespacesLabel = (TextView) findViewById(R.id.textViewLabelNamespaces);
 		tvNamespacesLabel.setText("Username:");
 
-		RelativeLayout linear = (RelativeLayout) findViewById(R.id.relativeLayout);
+		RelativeLayout relativeLayout = (RelativeLayout) findViewById(R.id.relativeLayout);
+
+		removeNamespaces(relativeLayout);
+
 		TextView tvNamespace = new TextView(this);
 		tvNamespace.setText(userName);
+		tvNamespace.setTag("namespace");
 		setNamespaceStyles(tvNamespace);
 		LayoutParams params = new LayoutParams(LayoutParams.WRAP_CONTENT,
 				LayoutParams.WRAP_CONTENT);
 		params.setMargins(0, 0, 5, 0);
 		params.addRule(RelativeLayout.RIGHT_OF, R.id.textViewLabelNamespaces);
 		tvNamespace.setLayoutParams(params);
-		linear.addView(tvNamespace);
+
+		relativeLayout.addView(tvNamespace);
 	}
 
 	private void displayNamespaces(String languageNamespace,
