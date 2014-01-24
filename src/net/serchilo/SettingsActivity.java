@@ -17,7 +17,7 @@ public class SettingsActivity extends PreferenceActivity {
 	EditTextPreference prefCustomNamespaces;
 	EditTextPreference prefDefaultKeyword;
 
-	@Override
+	@Override	
 	protected void onCreate(Bundle savedInstanceState) {	
 		super.onCreate(savedInstanceState);
 		addPreferencesFromResource(R.xml.activity_settings);
@@ -42,7 +42,7 @@ public class SettingsActivity extends PreferenceActivity {
 						return true;
 					}
 
-				});
+				});	
 	}
 	
 	protected void enableAndDisablePreferences(String userName) {
