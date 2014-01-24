@@ -18,7 +18,7 @@
         android:layout_height="wrap_content"
         android:padding="5px"
         android:layout_marginRight="5px"
-        android:text="Username:" />
+        android:text="" />
     
     
     <EditText
