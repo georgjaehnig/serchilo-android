@@ -65,6 +65,8 @@ public class MainActivity extends Activity {
 				imm.showSoftInput(searchInput, 0);
 			}
 		}, 200);
+
+		searchInput.selectAll();
 	}
 
 	private void setDefaultSettings() {
