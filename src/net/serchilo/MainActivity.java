@@ -1,36 +1,27 @@
 package net.serchilo;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Locale;
 
 import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
-import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
 import android.net.Uri;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.View.OnLongClickListener;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.RelativeLayout;
-import android.widget.RelativeLayout.LayoutParams;
 import android.widget.TextView;
 
 public class MainActivity extends Activity {
 
 	EditText searchInput;
 	Button searchSubmit;
-
-	OnSharedPreferenceChangeListener sharedPreferenceChangeListener;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -39,8 +30,6 @@ public class MainActivity extends Activity {
 
 		searchInput = (EditText) findViewById(R.id.searchInput);
 		searchSubmit = (Button) findViewById(R.id.searchSubmit);
-
-		updateContextDisplay();
 
 		searchSubmit.setOnClickListener(new OnClickListener() {
 			public void onClick(View v) {
@@ -58,246 +47,8 @@ public class MainActivity extends Activity {
 					}
 				});
 
-		// updateContextDisplay when preferences changed
-		SharedPreferences prefs = PreferenceManager
-				.getDefaultSharedPreferences(this);
-		sharedPreferenceChangeListener = new SharedPreferences.OnSharedPreferenceChangeListener() {
-			public void onSharedPreferenceChanged(SharedPreferences prefs,
-					String key) {
-				updateContextDisplay();
-			}
-		};
-
-		prefs.registerOnSharedPreferenceChangeListener(sharedPreferenceChangeListener);
-
 		setDefaultSettings();
-		RelativeLayout relativeLayout = (RelativeLayout) findViewById(R.id.relativeLayout);
 
-		// TextView tvQueryElement = new TextView(this);
-
-		Button queryElement;
-		int height;
-		queryElement = addQueryElement(relativeLayout, 1, 1, "g");
-		height = queryElement.getHeight();
-		Log.d("serchilo", "height:" + String.valueOf(height));
-		queryElement = addQueryElement(relativeLayout, 1, 2, "berlin");
-		height = queryElement.getHeight();
-		Log.d("serchilo", "height:" + String.valueOf(height));
-		queryElement = addQueryElement(relativeLayout, 2, 1, "db");
-		height = queryElement.getHeight();
-		Log.d("serchilo", "height:" + String.valueOf(height));
-		queryElement = addQueryElement(relativeLayout, 2, 2, "berlin");
-		height = queryElement.getHeight();
-		Log.d("serchilo", "height:" + String.valueOf(height));
-		queryElement = addQueryElement(relativeLayout, 2, 3, "hamburg");
-		height = queryElement.getHeight();
-		Log.d("serchilo", "height:" + String.valueOf(height));
-		queryElement = addQueryElement(relativeLayout, 2, 4, "10:00");
-		height = queryElement.getHeight();
-		Log.d("serchilo", "height:" + String.valueOf(height));
-		queryElement = addQueryElement(relativeLayout, 2, 5, "27.12.2014");
-		height = queryElement.getHeight();
-		Log.d("serchilo", "height:" + String.valueOf(height));
-
-	}
-
-	/**
-	 * @param relativeLayout
-	 */
-	private Button addQueryElement(RelativeLayout relativeLayout, int row,
-			int col, String text) {
-		Button buttonQueryElement = new Button(this);
-
-		buttonQueryElement.setText(text);
-
-		// tvQueryElement.setTextSize(TypedValue.COMPLEX_UNIT_SP, 16);
-		/*
-		 * tvQueryElement.setPaintFlags(tvQueryElement.getPaintFlags() |
-		 * Paint.UNDERLINE_TEXT_FLAG);
-		 */
-		LayoutParams params = new LayoutParams(LayoutParams.WRAP_CONTENT,
-				LayoutParams.WRAP_CONTENT);
-		params.setMargins(0, 5, 0, 0);
-
-		// if any not-first column
-		if (col > 1) {
-			// place it right of its left neighbor
-			params.addRule(RelativeLayout.RIGHT_OF, relativeLayout
-					.findViewById(row * 10 + col - 1).getId());
-			params.addRule(RelativeLayout.ALIGN_BASELINE, relativeLayout
-					.findViewById(row * 10 + col - 1).getId());
-		}
-		// first col, first row
-		else if (row == 1) {
-			// place it under searchInput
-			params.addRule(RelativeLayout.BELOW, R.id.searchInput);
-		}
-		// if first col, any other row
-		else {
-			// place it under its upper neighbor
-			params.addRule(RelativeLayout.BELOW,
-					relativeLayout.findViewById((row - 1) * 10 + 1).getId());
-		}
-		// params.addRule(RelativeLayout.BELOW, R.id.searchInput);
-
-		buttonQueryElement.setLayoutParams(params);
-
-		// buttonQueryElement.setId(id);
-
-		buttonQueryElement.setId(row * 10 + col);
-
-		buttonQueryElement.setOnLongClickListener(new OnLongClickListener() {
-
-			@Override
-			public boolean onLongClick(View v) {
-				// TODO offer popup menu to delete
-				return false;
-			}
-		});
-
-		buttonQueryElement.setOnClickListener(new OnClickListener() {
-			public void onClick(View v) {
-				TextView tv = (TextView) v;
-
-				// Log.d("serchilo", String.valueOf( ));
-
-				// if there is already a keyword and a argument
-				if (searchInput.getText().toString().isEmpty()) {
-					// just add
-					searchInput.append(tv.getText().toString());
-				} else if (searchInput.getText().toString().contains(" ")) {
-					// add with comma
-					searchInput.append(", " + tv.getText().toString());
-				} else {
-					// add without comma
-					searchInput.append(" " + tv.getText().toString());
-				}
-
-				// searchInput.setText(newText);
-				// searchInput.setSelection(searchInput.getText().length() - 1);
-			}
-		});
-
-		relativeLayout.addView(buttonQueryElement);
-
-		return buttonQueryElement;
-	}
-
-	public void updateContextDisplay() {
-
-		SharedPreferences pref = PreferenceManager
-				.getDefaultSharedPreferences(this);
-
-		String userName = pref.getString("user_name", "");
-
-		if (userName.isEmpty()) {
-			displayNamespaces(pref.getString("language_namespace", ""),
-					pref.getString("country_namespace", ""),
-					pref.getString("custom_namespaces", ""));
-		} else {
-			displayUsername(userName);
-		}
-	}
-
-	private void displayUsername(String userName) {
-		TextView tvNamespacesLabel = (TextView) findViewById(R.id.textViewLabelNamespaces);
-		tvNamespacesLabel.setText("Username:");
-
-		RelativeLayout relativeLayout = (RelativeLayout) findViewById(R.id.relativeLayout);
-		removeNamespaces(relativeLayout);
-
-		TextView tvNamespace = new TextView(this);
-		tvNamespace.setText(userName);
-		tvNamespace.setTag("namespace");
-		setNamespaceStyles(tvNamespace);
-		LayoutParams params = new LayoutParams(LayoutParams.WRAP_CONTENT,
-				LayoutParams.WRAP_CONTENT);
-		params.setMargins(0, 0, 5, 0);
-		params.addRule(RelativeLayout.RIGHT_OF, R.id.textViewLabelNamespaces);
-		tvNamespace.setLayoutParams(params);
-
-		relativeLayout.addView(tvNamespace);
-	}
-
-	private void displayNamespaces(String languageNamespace,
-			String countryNamespace, String customNamespacesString) {
-
-		TextView tvNamespacesLabel = (TextView) findViewById(R.id.textViewLabelNamespaces);
-		tvNamespacesLabel.setText("Namespaces:");
-
-		ArrayList<String> namespaces = splitNamespaceString(customNamespacesString);
-
-		namespaces.add(0, languageNamespace);
-		namespaces.add(1, countryNamespace);
-
-		RelativeLayout relativeLayout = (RelativeLayout) findViewById(R.id.relativeLayout);
-		removeNamespaces(relativeLayout);
-		addNamespaces(relativeLayout, namespaces);
-	}
-
-	/**
-	 * @param customNamespacesString
-	 * @return
-	 */
-	private ArrayList<String> splitNamespaceString(String customNamespacesString) {
-		customNamespacesString = customNamespacesString.trim();
-
-		String[] customNamespaces = new String[0];
-		if (!customNamespacesString.isEmpty()) {
-			customNamespaces = customNamespacesString.split("\\.");
-		}
-
-		ArrayList<String> namespaces = new ArrayList<String>(
-				Arrays.asList(customNamespaces));
-		return namespaces;
-	}
-
-	private void addNamespaces(RelativeLayout relativeLayout,
-			ArrayList<String> namespaces) {
-		ArrayList<TextView> tvNamespaces = new ArrayList<TextView>();
-		for (int i = 0; i < namespaces.size(); i++) {
-			tvNamespaces.add(new TextView(this));
-			tvNamespaces.get(i).setId(i + 1);
-			tvNamespaces.get(i).setTag("namespace");
-
-			tvNamespaces.get(i).setText(namespaces.get(i));
-			setNamespaceStyles(tvNamespaces.get(i));
-			LayoutParams params = new LayoutParams(LayoutParams.WRAP_CONTENT,
-					LayoutParams.WRAP_CONTENT);
-
-			// for the first textView
-			if (i == 0) {
-				// place it right to the label
-				params.addRule(RelativeLayout.RIGHT_OF,
-						R.id.textViewLabelNamespaces);
-			} else {
-				// place it right to the previous item
-				params.addRule(RelativeLayout.RIGHT_OF, tvNamespaces.get(i - 1)
-						.getId());
-			}
-			// set right margin;
-			params.setMargins(0, 0, 5, 0);
-			tvNamespaces.get(i).setLayoutParams(params);
-			relativeLayout.addView(tvNamespaces.get(i));
-		}
-	}
-
-	private void removeNamespaces(RelativeLayout relativeLayout) {
-
-		TextView tvNamespace;
-		do {
-			tvNamespace = (TextView) relativeLayout
-					.findViewWithTag("namespace");
-			if (tvNamespace != null) {
-				relativeLayout.removeView(tvNamespace);
-			}
-		} while (tvNamespace != null);
-	}
-
-	private void setNamespaceStyles(TextView tvNamespace) {
-		tvNamespace.setPadding(5, 5, 5, 5);
-		tvNamespace.setBackgroundColor(0xFFAA2C30);
-		tvNamespace.setTextColor(0xFFFFFFFF);
 	}
 
 	private void setDefaultSettings() {
