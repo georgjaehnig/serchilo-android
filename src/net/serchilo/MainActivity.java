@@ -3,6 +3,7 @@ package net.serchilo;
 import java.util.Locale;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
@@ -14,6 +15,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -24,7 +26,7 @@ public class MainActivity extends Activity {
 	Button searchSubmit;
 
 	@Override
-	protected void onCreate(Bundle savedInstanceState) {
+	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 
@@ -48,7 +50,21 @@ public class MainActivity extends Activity {
 				});
 
 		setDefaultSettings();
+	}
 
+	@Override
+	public void onStart() {
+		super.onStart();
+
+		// show soft keyboard
+		final InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+		searchInput.postDelayed(new Runnable() {
+			@Override
+			public void run() {
+				searchInput.requestFocus();
+				imm.showSoftInput(searchInput, 0);
+			}
+		}, 200);
 	}
 
 	private void setDefaultSettings() {
