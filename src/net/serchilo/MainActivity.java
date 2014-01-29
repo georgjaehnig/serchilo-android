@@ -1,5 +1,7 @@
 package net.serchilo;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Locale;
 
 import android.app.Activity;
@@ -18,6 +20,8 @@ import android.view.View.OnClickListener;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout.LayoutParams;
 import android.widget.TextView;
 
 public class MainActivity extends Activity {
@@ -50,6 +54,86 @@ public class MainActivity extends Activity {
 				});
 
 		setDefaultSettings();
+		updateRecentKeywords();
+	}
+
+	/**
+	 * @param keyword
+	 */
+	private void addKeyword(String keyword) {
+		SharedPreferences pref = PreferenceManager
+				.getDefaultSharedPreferences(this);
+		Editor editor = pref.edit();
+
+		String recentKeywordsString = pref.getString("recent_keywords", "");
+		String[] recentKeywordsArray = recentKeywordsString.split(" ");
+
+		ArrayList<String> recentKeywords = new ArrayList<String>(
+				Arrays.asList(recentKeywordsArray));
+
+		// if keyword already in list
+		if (recentKeywords.contains(keyword)) {
+			// remove it
+			// (to place it again at the fron)
+			recentKeywords.remove(recentKeywords.indexOf(keyword));
+		}
+		recentKeywords.add(0, keyword);
+		// limit list to 5
+		if (recentKeywords.size() > 5) {
+			recentKeywords.remove(5);
+		}
+		recentKeywordsString = "";
+		for (int i = 0; i < recentKeywords.size(); i++) {
+			recentKeywordsString = recentKeywordsString + recentKeywords.get(i)
+					+ " ";
+		}
+		recentKeywordsString = recentKeywordsString.trim();
+		editor.putString("recent_keywords", recentKeywordsString);
+		editor.commit();
+	}
+
+	private void updateRecentKeywords() {
+
+		LinearLayout keywordButtons = (LinearLayout) findViewById(R.id.keywordButtons);
+		keywordButtons.removeAllViews();
+		String[] recentKeywords = PreferenceManager
+				.getDefaultSharedPreferences(this)
+				.getString("recent_keywords", "").split(" ");
+		for (int i = 0; i < recentKeywords.length; i++) {
+			addRecentKeyword(keywordButtons, recentKeywords[i], i + 1);
+		}
+	}
+
+	/**
+	 * @param keywordButtons
+	 */
+	private Button addRecentKeyword(LinearLayout keywordButtons, String text,
+			int id) {
+		Button recentKeywordButton = new Button(this);
+
+		recentKeywordButton.setText(text);
+
+		LayoutParams params = new LayoutParams(LayoutParams.WRAP_CONTENT,
+				LayoutParams.WRAP_CONTENT);
+
+		recentKeywordButton.setLayoutParams(params);
+		recentKeywordButton.setSingleLine(true);
+
+		// buttonQueryElement.setId(id);
+
+		recentKeywordButton.setId(id);
+
+		recentKeywordButton.setOnClickListener(new OnClickListener() {
+			public void onClick(View v) {
+				Button recentKeywordButton = (Button) v;
+				searchInput.append(recentKeywordButton.getText().toString()
+						+ " ");
+			}
+		});
+
+		keywordButtons.addView(recentKeywordButton);
+
+		return recentKeywordButton;
 	}
 
 	@Override
@@ -84,6 +168,9 @@ public class MainActivity extends Activity {
 					.getISO3Country().toLowerCase());
 		}
 
+		if (!pref.contains("recent_keywords")) {
+			editor.putString("recent_keywords", "g w yt gm a");
+		}
 		editor.commit();
 	}
 
@@ -109,6 +196,8 @@ public class MainActivity extends Activity {
 
 		String query = searchInput.getText().toString();
 		String[] keywordAndArguments = parseQuery(query);
+		addKeyword(keywordAndArguments[0]);
+		updateRecentKeywords();
 		processKeywordAndArguments(keywordAndArguments[0],
 				keywordAndArguments[1]);
 

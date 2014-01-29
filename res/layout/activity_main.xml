@@ -32,6 +32,16 @@
         android:layout_alignParentRight="true"
         android:text="@string/submitButton" />
 
+    <LinearLayout
+ 	    android:id="@+id/keywordButtons"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_alignLeft="@+id/searchInput"
+        android:layout_below="@+id/searchSubmit" >
+
+        </LinearLayout>
+
 </RelativeLayout>
 
 </ScrollView>
