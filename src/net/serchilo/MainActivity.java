@@ -223,10 +223,10 @@ public class MainActivity extends Activity {
 	}
 
 	private void processKeywordAndArguments(String keyword, String arguments) {
-		sendQuery(keyword + " " + arguments);
+		processQuery(keyword + " " + arguments);
 	}
 
-	private void sendQuery(String query) {
+	private void processQuery(String query) {
 
 		query = query.trim();
 		SharedPreferences pref = PreferenceManager
