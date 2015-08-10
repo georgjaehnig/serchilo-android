@@ -134,6 +134,7 @@ public class MainActivity extends Activity {
 		recentKeywordButton.setOnClickListener(new OnClickListener() {
 			public void onClick(View v) {
 				Button recentKeywordButton = (Button) v;
+				searchInput.setText("");
 				searchInput.append(recentKeywordButton.getText().toString()
 						+ " ");
 			}
