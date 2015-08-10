@@ -29,6 +29,9 @@ public class MainActivity extends Activity {
 	EditText searchInput;
 	Button searchSubmit;
 
+	/**
+	 * Sets the listeners to subit button and input field.
+	 */
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -58,6 +61,8 @@ public class MainActivity extends Activity {
 	}
 
 	/**
+	 * Adds a keyword to the list of recent keywords.
+	 * 
 	 * @param keyword
 	 */
 	private void addKeyword(String keyword) {
@@ -92,6 +97,9 @@ public class MainActivity extends Activity {
 		editor.commit();
 	}
 
+	/**
+	 * Update the the buttons of the recent keywords.
+	 */
 	private void updateRecentKeywords() {
 		LinearLayout keywordButtons = (LinearLayout) findViewById(R.id.keywordButtons);
 		keywordButtons.removeAllViews();
@@ -142,11 +150,14 @@ public class MainActivity extends Activity {
 		return recentKeywordButton;
 	}
 
+	/**
+	 * Show the keyboard on start.
+	 */
 	@Override
 	public void onStart() {
 		super.onStart();
 
-		// show soft keyboard
+		// Show soft keyboard.
 		final InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
 		searchInput.postDelayed(new Runnable() {
 			@Override
@@ -159,6 +170,9 @@ public class MainActivity extends Activity {
 		searchInput.selectAll();
 	}
 
+	/**
+	 * Set the default settings.
+	 */
 	private void setDefaultSettings() {
 		SharedPreferences pref = PreferenceManager
 				.getDefaultSharedPreferences(this);
@@ -180,6 +194,9 @@ public class MainActivity extends Activity {
 		editor.commit();
 	}
 
+	/**
+	 * TODO: find out what this does.
+	 */
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
@@ -187,6 +204,9 @@ public class MainActivity extends Activity {
 		return true;
 	}
 
+	/**
+	 * Open the settings.
+	 */
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
 		case R.id.action_settings:
@@ -197,17 +217,32 @@ public class MainActivity extends Activity {
 		}
 	}
 
-	// @Override
+	/**
+	 * Handle the submit click.
+	 * 
+	 * @param v
+	 *            The current View.
+	 */
 	private void handleSubmitClick(View v) {
 		String query = searchInput.getText().toString();
 		String[] keywordAndArguments = parseQuery(query);
+
+		// Add keyword to recent keyword list and update the buttons.
 		addKeyword(keywordAndArguments[0]);
 		updateRecentKeywords();
+
+		// Process the query.
 		processKeywordAndArguments(keywordAndArguments[0],
 				keywordAndArguments[1]);
 
 	}
 
+	/**
+	 * Parse the query, i.e. split it into keyword and arguments.
+	 * 
+	 * @param query
+	 * @return
+	 */
 	private String[] parseQuery(String query) {
 		// Add whitespace to always get at least 2 parts on split.
 		query = query + " ";
@@ -223,6 +258,12 @@ public class MainActivity extends Activity {
 		processQuery(keyword + " " + arguments);
 	}
 
+	/**
+	 * Process the query.
+	 * 
+	 * @param query
+	 *            The query string.
+	 */
 	private void processQuery(String query) {
 
 		query = query.trim();
