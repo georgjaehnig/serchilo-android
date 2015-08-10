@@ -229,6 +229,7 @@ public class MainActivity extends Activity {
 
 	private void sendQuery(String query) {
 
+		query = query.trim();
 		SharedPreferences pref = PreferenceManager
 				.getDefaultSharedPreferences(this);
 
