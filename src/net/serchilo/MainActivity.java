@@ -9,7 +9,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
-import android.net.Uri;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.view.KeyEvent;
@@ -255,12 +254,6 @@ public class MainActivity extends Activity {
 		}
 		url += "query=" + query;
 
-		Intent httpIntent = new Intent(Intent.ACTION_VIEW);
-		httpIntent.setData(Uri.parse(url));
-
-		// send to browser
-		// (or other app handling the url)
-		startActivity(httpIntent);
+		new SendQuery(this).execute(url);
 	}
-
 }
