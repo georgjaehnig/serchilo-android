@@ -93,7 +93,6 @@ public class MainActivity extends Activity {
 	}
 
 	private void updateRecentKeywords() {
-
 		LinearLayout keywordButtons = (LinearLayout) findViewById(R.id.keywordButtons);
 		keywordButtons.removeAllViews();
 		String[] recentKeywords = PreferenceManager
@@ -200,7 +199,6 @@ public class MainActivity extends Activity {
 
 	// @Override
 	private void handleSubmitClick(View v) {
-
 		String query = searchInput.getText().toString();
 		String[] keywordAndArguments = parseQuery(query);
 		addKeyword(keywordAndArguments[0]);
@@ -211,8 +209,7 @@ public class MainActivity extends Activity {
 	}
 
 	private String[] parseQuery(String query) {
-		// add whitespace to the end
-		// so we always get at least 2 parts on split
+		// Add whitespace to always get at least 2 parts on split.
 		query = query + " ";
 		String[] keywordAndArguments = query.split(" ", 2);
 
