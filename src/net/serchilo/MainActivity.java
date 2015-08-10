@@ -17,6 +17,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.View.OnLongClickListener;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
@@ -128,6 +129,12 @@ public class MainActivity extends Activity {
 				Button recentKeywordButton = (Button) v;
 				searchInput.append(recentKeywordButton.getText().toString()
 						+ " ");
+			}
+		});
+
+		recentKeywordButton.setOnLongClickListener(new OnLongClickListener() {
+			public boolean onLongClick(View v) {
+				return false;
 			}
 		});
 
