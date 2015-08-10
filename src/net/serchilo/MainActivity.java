@@ -83,7 +83,8 @@ public class MainActivity extends Activity {
 			recentKeywords.remove(recentKeywords.indexOf(keyword));
 		}
 		recentKeywords.add(0, keyword);
-		// limit list to 5
+
+		// Limit list to 5.
 		if (recentKeywords.size() > 5) {
 			recentKeywords.remove(5);
 		}
