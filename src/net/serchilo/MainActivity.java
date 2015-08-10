@@ -134,6 +134,7 @@ public class MainActivity extends Activity {
 
 		recentKeywordButton.setOnLongClickListener(new OnLongClickListener() {
 			public boolean onLongClick(View v) {
+				v.setVisibility(View.GONE);
 				return false;
 			}
 		});
