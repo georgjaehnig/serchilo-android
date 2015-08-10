@@ -239,7 +239,7 @@ public class MainActivity extends Activity {
 		String customNamespaces = pref.getString("custom_namespaces", "");
 		String defaultKeyword = pref.getString("default_keyword", "");
 
-		String url = "http://www.serchilo.net/";
+		String url = "https://www.findfind.it/api/";
 
 		if (userName.equals("")) {
 			url += "n/" + languageNamespace + "." + countryNamespace;
