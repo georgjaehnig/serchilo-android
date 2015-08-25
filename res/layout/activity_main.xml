@@ -23,15 +23,6 @@
         android:imeOptions="actionGo"
         android:singleLine="true" />
 
-    <Button
-        android:id="@+id/searchSubmit"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/searchInput"
-        android:layout_alignBottom="@+id/searchInput"
-        android:layout_alignParentRight="true"
-        android:text="@string/submitButton" />
-
       
     <LinearLayout
  	    android:id="@+id/keywordButtons"
@@ -39,7 +30,7 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:layout_alignLeft="@+id/searchInput"
-        android:layout_below="@+id/searchSubmit" >
+        android:layout_below="@+id/searchInput" >
 
         </LinearLayout>
         <LinearLayout
@@ -53,8 +44,19 @@
                 android:id="@+id/commmaButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:singleLine="true"
                 android:text="," />
-        </LinearLayout>
+    
+    <Button
+        android:id="@+id/searchSubmit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:text="@string/submitButton" />
+
+            
+            
+            </LinearLayout>
     </RelativeLayout>
 
 </ScrollView>
