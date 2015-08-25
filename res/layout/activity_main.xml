@@ -32,6 +32,7 @@
         android:layout_alignParentRight="true"
         android:text="@string/submitButton" />
 
+      
     <LinearLayout
  	    android:id="@+id/keywordButtons"
         android:layout_width="wrap_content"
@@ -41,7 +42,19 @@
         android:layout_below="@+id/searchSubmit" >
 
         </LinearLayout>
+        <LinearLayout
+            android:id="@+id/inputButtons"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/keywordButtons"
+            android:orientation="horizontal" >
 
-</RelativeLayout>
+            <Button
+                android:id="@+id/commmaButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="," />
+        </LinearLayout>
+    </RelativeLayout>
 
 </ScrollView>
