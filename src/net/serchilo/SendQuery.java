@@ -17,10 +17,16 @@ public class SendQuery extends AsyncTask<String, Void, String> {
 
 	Context context;
 
+	/**
+	 * Constructor.
+	 */
 	public SendQuery(Context context) {
 		this.context = context.getApplicationContext();
 	}
 
+	/**
+	 * Get the JSON from the API.
+	 */
 	protected String doInBackground(String... urls) {
 		try {
 			// API URL is the first and only one passed.
@@ -49,6 +55,9 @@ public class SendQuery extends AsyncTask<String, Void, String> {
 		}
 	}
 
+	/**
+	 * Send the intent.
+	 */
 	protected void onPostExecute(String shortcutUrl) {
 
 		super.onPostExecute(shortcutUrl);
@@ -60,13 +69,11 @@ public class SendQuery extends AsyncTask<String, Void, String> {
 		context.startActivity(intent);
 	}
 
+	/**
+	 * One of these bullshit Java functions, doing something absolutely trivial,
+	 * but with 20 lines of code.
+	 */
 	private static String convertStreamToString(InputStream is) {
-		/*
-		 * To convert the InputStream to String we use the
-		 * BufferedReader.readLine() method. We iterate until the BufferedReader
-		 * return null which means there's no more data to read. Each line will
-		 * appended to a StringBuilder and returned as String.
-		 */
 		BufferedReader reader = new BufferedReader(new InputStreamReader(is));
 		StringBuilder sb = new StringBuilder();
 
