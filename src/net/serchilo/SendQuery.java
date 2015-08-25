@@ -30,7 +30,13 @@ public class SendQuery extends AsyncTask<String, Void, String> {
 	protected String doInBackground(String... urls) {
 		try {
 			// API URL is the first and only one passed.
-			URL apiUrl = new URL(urls[0]);
+			String domain = urls[0];
+			String pathAndQuery = urls[1];
+
+			String apiUrlStr = domain + "api/" + pathAndQuery;
+			String errorUrlStr = domain + pathAndQuery + "&status=not_found";
+
+			URL apiUrl = new URL(apiUrlStr);
 
 			// Open stream and convert to JSON.
 			InputStream inputStream = apiUrl.openStream();
@@ -42,12 +48,11 @@ public class SendQuery extends AsyncTask<String, Void, String> {
 
 			if (found) {
 				// Get shortcut URL from JSON object.
-				String shortcutUrl = json.getJSONObject("url").getString(
+				String shortcutUrlStr = json.getJSONObject("url").getString(
 						"final");
-				return shortcutUrl;
+				return shortcutUrlStr;
 			} else {
-				// TODO: Show error / redirect to Serchilo site.
-				return null;
+				return errorUrlStr;
 			}
 		} catch (Exception e) {
 			e.printStackTrace();

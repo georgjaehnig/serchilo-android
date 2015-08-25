@@ -284,28 +284,26 @@ public class MainActivity extends Activity {
 		String customNamespaces = pref.getString("custom_namespaces", "");
 		String defaultKeyword = pref.getString("default_keyword", "");
 
-		// TODO: Put this into a constant at the beginning of the class.
-		String url = DOMAIN + "api/";
-
+		String pathAndQuery = "";
 		if (userName.equals("")) {
-			url += "n/" + languageNamespace + "." + countryNamespace;
+			pathAndQuery += "n/" + languageNamespace + "." + countryNamespace;
 			if (!customNamespaces.equals("")) {
-				url += "." + customNamespaces;
+				pathAndQuery += "." + customNamespaces;
 			}
-			url += "?";
+			pathAndQuery += "?";
 			if (!defaultKeyword.equals("")) {
-				url += "default_keyword=" + defaultKeyword + "&";
+				pathAndQuery += "default_keyword=" + defaultKeyword + "&";
 			}
 		} else {
-			url += "u/" + userName + "?";
+			pathAndQuery += "u/" + userName + "?";
 		}
 		try {
-			url += "query=" + URLEncoder.encode(query, "UTF-8");
+			pathAndQuery += "query=" + URLEncoder.encode(query, "UTF-8");
 		} catch (UnsupportedEncodingException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
-		new SendQuery(this).execute(url);
+		new SendQuery(this).execute(DOMAIN, pathAndQuery);
 	}
 }
