@@ -1,57 +1,58 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-            xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent" android:layout_height="match_parent">
-    
-<RelativeLayout
-    android:id="@+id/relativeLayout"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context=".MainActivity" >
+    android:layout_height="match_parent" >
 
-    <EditText
-        android:id="@+id/searchInput"
-        android:layout_width="fill_parent"
+    <RelativeLayout
+        android:id="@+id/relativeLayout"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20px"
-        android:ems="10"
-        android:hint="@string/hintSearchInput"
-        android:imeOptions="actionGo"
-        android:singleLine="true" />
+        android:paddingBottom="@dimen/activity_vertical_margin"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingRight="@dimen/activity_horizontal_margin"
+        android:paddingTop="@dimen/activity_vertical_margin"
+        tools:context=".MainActivity" >
 
-    <LinearLayout
-        android:id="@+id/keywordButtons"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/searchInput"
-        android:layout_below="@+id/searchInput"
-        android:orientation="horizontal" >
-    </LinearLayout>
+        <EditText
+            android:id="@+id/searchInput"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20px"
+            android:ems="10"
+            android:hint="@string/hintSearchInput"
+            android:imeOptions="actionGo"
+            android:singleLine="true" />
 
-    <LinearLayout
-        android:id="@+id/inputButtons"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/keywordButtons"
-        android:orientation="horizontal" >
-
-        <Button
-            android:id="@+id/commmaButton"
+        <LinearLayout
+            android:id="@+id/inputButtons"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:singleLine="true"
-            android:text="," />
+            android:layout_below="@+id/searchInput"
+            android:orientation="horizontal" >
 
-        <Button
-            android:id="@+id/searchSubmit"
+            <Button
+                android:id="@+id/commmaButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:singleLine="true"
+                android:text="," />
+
+            <Button
+                android:id="@+id/searchSubmit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:text="@string/submitButton" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/keywordButtons"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:text="@string/submitButton" />
-    </LinearLayout>
-</RelativeLayout>
+            android:layout_alignLeft="@+id/searchInput"
+            android:layout_below="@+id/inputButtons"
+            android:orientation="horizontal" >
+        </LinearLayout>
+    </RelativeLayout>
 
 </ScrollView>
