@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">Serchilo</string>
+    <string name="app_name">FindFind.it</string>
     <string name="action_settings">Settings</string>
     <string name="submitButton">Go</string>
     <string name="comma">,</string>
