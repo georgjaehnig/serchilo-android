@@ -30,6 +30,8 @@ public class MainActivity extends Activity {
 
 	EditText searchInput;
 	Button searchSubmit;
+	Button clearButton;
+	Button commaButton;
 
 	public static final String DOMAIN = "https://www.findfind.it/";
 
@@ -43,6 +45,20 @@ public class MainActivity extends Activity {
 
 		searchInput = (EditText) findViewById(R.id.searchInput);
 		searchSubmit = (Button) findViewById(R.id.searchSubmit);
+		clearButton = (Button) findViewById(R.id.clearButton);
+		commaButton = (Button) findViewById(R.id.commaButton);
+
+		clearButton.setOnClickListener(new OnClickListener() {
+			public void onClick(View v) {
+				searchInput.setText("");
+			}
+		});
+		commaButton.setOnClickListener(new OnClickListener() {
+			public void onClick(View v) {
+				searchInput.append(",");
+
+			}
+		});
 
 		searchSubmit.setOnClickListener(new OnClickListener() {
 			public void onClick(View v) {
