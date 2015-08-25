@@ -25,21 +25,23 @@
 
         <LinearLayout
             android:id="@+id/inputButtons"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/searchInput"
             android:orientation="horizontal" >
 
             <Button
                 android:id="@+id/commmaButton"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
+                android:layout_weight="0.5"
                 android:layout_height="wrap_content"
                 android:singleLine="true"
                 android:text="," />
 
             <Button
                 android:id="@+id/searchSubmit"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
+                android:layout_weight="0.5"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
                 android:text="@string/submitButton" />
