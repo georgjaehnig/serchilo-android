@@ -31,9 +31,17 @@
             android:orientation="horizontal" >
 
             <Button
+                android:id="@+id/clearButton"
+                android:layout_width="0dp"
+                android:layout_weight="0.25"
+                android:layout_height="wrap_content"
+                android:singleLine="true"
+                android:text="clear" />
+
+            <Button
                 android:id="@+id/commmaButton"
                 android:layout_width="0dp"
-                android:layout_weight="0.5"
+                android:layout_weight="0.25"
                 android:layout_height="wrap_content"
                 android:singleLine="true"
                 android:text="," />
