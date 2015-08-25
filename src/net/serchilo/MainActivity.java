@@ -78,10 +78,9 @@ public class MainActivity extends Activity {
 		ArrayList<String> recentKeywords = new ArrayList<String>(
 				Arrays.asList(recentKeywordsArray));
 
-		// if keyword already in list
+		// If keyword is already in the list.
 		if (recentKeywords.contains(keyword)) {
-			// remove it
-			// (to place it again at the fron)
+			// Remove it (to place it again at front).
 			recentKeywords.remove(recentKeywords.indexOf(keyword));
 		}
 		recentKeywords.add(0, keyword);
@@ -115,21 +114,23 @@ public class MainActivity extends Activity {
 	}
 
 	/**
+	 * Add a recentKeywordButton.
+	 * 
 	 * @param keywordButtons
 	 */
 	private Button addRecentKeyword(LinearLayout keywordButtons, String text,
 			int id) {
-		Button recentKeywordButton = new Button(this);
 
+		// Create new button with text.
+		Button recentKeywordButton = new Button(this);
 		recentKeywordButton.setText(text);
 
+		// TODO: Make sure they actually wrap.
 		LayoutParams params = new LayoutParams(LayoutParams.WRAP_CONTENT,
 				LayoutParams.WRAP_CONTENT);
 
 		recentKeywordButton.setLayoutParams(params);
 		recentKeywordButton.setSingleLine(true);
-
-		// buttonQueryElement.setId(id);
 
 		recentKeywordButton.setId(id);
 
@@ -149,6 +150,7 @@ public class MainActivity extends Activity {
 			}
 		});
 
+		// Add button to the view.
 		keywordButtons.addView(recentKeywordButton);
 
 		return recentKeywordButton;
@@ -280,6 +282,7 @@ public class MainActivity extends Activity {
 		String customNamespaces = pref.getString("custom_namespaces", "");
 		String defaultKeyword = pref.getString("default_keyword", "");
 
+		// TODO: Put this into a constant at the beginning of the class.
 		String url = "https://www.findfind.it/api/";
 
 		if (userName.equals("")) {
