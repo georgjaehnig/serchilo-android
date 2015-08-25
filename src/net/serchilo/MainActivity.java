@@ -1,5 +1,7 @@
 package net.serchilo;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Locale;
@@ -292,7 +294,12 @@ public class MainActivity extends Activity {
 		} else {
 			url += "u/" + userName + "?";
 		}
-		url += "query=" + query;
+		try {
+			url += "query=" + URLEncoder.encode(query, "UTF-8");
+		} catch (UnsupportedEncodingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 
 		new SendQuery(this).execute(url);
 	}
