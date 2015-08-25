@@ -53,6 +53,7 @@ public class MainActivity extends Activity {
 				searchInput.setText("");
 			}
 		});
+
 		commaButton.setOnClickListener(new OnClickListener() {
 			public void onClick(View v) {
 				searchInput.append(",");
