@@ -39,7 +39,7 @@
                 android:text="clear" />
 
             <Button
-                android:id="@+id/commmaButton"
+                android:id="@+id/commaButton"
                 android:layout_width="0dp"
                 android:layout_weight="0.25"
                 android:layout_height="wrap_content"
