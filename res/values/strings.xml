@@ -7,14 +7,14 @@
     <string name="comma">,</string>
     <string name="clear">clear</string>
     <string name="hintSearchInput"></string>    
-    <string name="pref_user_name_title">Serchilo user name</string>
+    <string name="pref_user_name_title">User name</string>
     <string name="pref_user_name_summary">Leave blank if you have no user account</string>
     <string name="pref_user_name_default_value"></string>
     <string name="pref_custom_namespaces_title">Custom namespaces</string>
     <string name="pref_custom_namespaces_summary">Optional. Add additional namespaces, separated by &quot;.&quot;</string>
     <string name="pref_default_keyword_title">Default keyword</string>
     <string name="pref_default_keyword_default_value">g</string>
-    <string name="pref_default_keyword_summary">Optional. A default keyword will be used if no Serchilo command was found in your search query. Defaults to Google.</string>
+    <string name="pref_default_keyword_summary">Optional. A default keyword will be used if your query could not be matched with a shortcut. Defaults to Google.</string>
     <string name="pref_language_namespace_title">Language namespace</string>
 
     <string-array name="pref_language_namespace_values">
