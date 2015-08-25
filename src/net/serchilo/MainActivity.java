@@ -136,6 +136,8 @@ public class MainActivity extends Activity {
 
 		recentKeywordButton.setId(id);
 
+		// On click:
+		// set keyword to input.
 		recentKeywordButton.setOnClickListener(new OnClickListener() {
 			public void onClick(View v) {
 				Button recentKeywordButton = (Button) v;
@@ -145,6 +147,8 @@ public class MainActivity extends Activity {
 			}
 		});
 
+		// On long click:
+		// delete keyword.
 		recentKeywordButton.setOnLongClickListener(new OnLongClickListener() {
 			public boolean onLongClick(View v) {
 				v.setVisibility(View.GONE);
