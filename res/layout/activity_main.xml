@@ -16,7 +16,6 @@
         android:id="@+id/searchInput"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_marginRight="120px"
         android:layout_marginTop="20px"
         android:ems="10"
         android:hint="@string/hintSearchInput"
