@@ -12,16 +12,20 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.AsyncTask;
+import android.view.View;
+import android.widget.Button;
 
 public class SendQuery extends AsyncTask<String, Void, String> {
 
 	Context context;
+	private View mainView;
 
 	/**
 	 * Constructor.
 	 */
-	public SendQuery(Context context) {
+	public SendQuery(Context context, View mainView) {
 		this.context = context.getApplicationContext();
+		this.mainView = mainView;
 	}
 
 	/**
@@ -72,6 +76,10 @@ public class SendQuery extends AsyncTask<String, Void, String> {
 		intent.setData(Uri.parse(shortcutUrl));
 
 		context.startActivity(intent);
+
+		Button searchSubmit = (Button) mainView
+				.findViewById(R.id.searchSubmit);
+		searchSubmit.setText("Go");
 	}
 
 	/**

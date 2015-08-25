@@ -28,10 +28,11 @@ import android.widget.TextView;
 
 public class MainActivity extends Activity {
 
-	EditText searchInput;
 	Button searchSubmit;
+	EditText searchInput;
 	Button clearButton;
 	Button commaButton;
+	View mainView;
 
 	public static final String DOMAIN = "https://www.findfind.it/";
 
@@ -42,6 +43,8 @@ public class MainActivity extends Activity {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
+
+		mainView = (View) findViewById(R.id.mainView);
 
 		searchInput = (EditText) findViewById(R.id.searchInput);
 		searchSubmit = (Button) findViewById(R.id.searchSubmit);
@@ -253,6 +256,7 @@ public class MainActivity extends Activity {
 	 *            The current View.
 	 */
 	private void handleSubmitClick(View v) {
+		searchSubmit.setText("loading...");
 		String query = searchInput.getText().toString();
 		String[] keywordAndArguments = parseQuery(query);
 
@@ -325,6 +329,6 @@ public class MainActivity extends Activity {
 			e.printStackTrace();
 		}
 
-		new SendQuery(this).execute(DOMAIN, pathAndQuery);
+		new SendQuery(this, mainView).execute(DOMAIN, pathAndQuery);
 	}
 }
