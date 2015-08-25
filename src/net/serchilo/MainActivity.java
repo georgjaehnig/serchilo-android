@@ -145,8 +145,8 @@ public class MainActivity extends Activity {
 		recentKeywordButton.setText(text);
 
 		// TODO: Make sure they actually wrap.
-		LayoutParams params = new LayoutParams(LayoutParams.WRAP_CONTENT,
-				LayoutParams.WRAP_CONTENT);
+		LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
+				LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT, 0.20f);
 
 		recentKeywordButton.setLayoutParams(params);
 		recentKeywordButton.setSingleLine(true);
