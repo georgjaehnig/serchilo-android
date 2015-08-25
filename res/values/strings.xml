@@ -4,6 +4,8 @@
     <string name="app_name">Serchilo</string>
     <string name="action_settings">Settings</string>
     <string name="submitButton">Go</string>
+    <string name="comma">,</string>
+    <string name="clear">clear</string>
     <string name="hintSearchInput"></string>    
     <string name="pref_user_name_title">Serchilo user name</string>
     <string name="pref_user_name_summary">Leave blank if you have no user account</string>
