@@ -31,6 +31,8 @@ public class MainActivity extends Activity {
 	EditText searchInput;
 	Button searchSubmit;
 
+	public static final String DOMAIN = "https://www.findfind.it/";
+
 	/**
 	 * Sets the listeners to subit button and input field.
 	 */
@@ -283,7 +285,7 @@ public class MainActivity extends Activity {
 		String defaultKeyword = pref.getString("default_keyword", "");
 
 		// TODO: Put this into a constant at the beginning of the class.
-		String url = "https://www.findfind.it/api/";
+		String url = DOMAIN + "api/";
 
 		if (userName.equals("")) {
 			url += "n/" + languageNamespace + "." + countryNamespace;
