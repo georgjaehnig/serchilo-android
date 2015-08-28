@@ -32,5 +32,10 @@
         android:key="default_keyword"
         android:summary="@string/pref_default_keyword_summary"
         android:title="@string/pref_default_keyword_title" />
-
+    
+    <Preference
+        android:key="version"
+        android:summary="@string/pref_version_summary"
+        android:title="@string/pref_version_title" />
+    
 </PreferenceScreen>
