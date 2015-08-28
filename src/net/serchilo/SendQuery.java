@@ -28,25 +28,28 @@ public class SendQuery extends AsyncTask<String, Void, String> {
 		this.mainView = mainView;
 	}
 
+	protected void onPreExecute() {
+		super.onPreExecute();
+	}
+
 	/**
 	 * Get the JSON from the API.
 	 */
 	protected String doInBackground(String... urls) {
+		// API URL is the first and only one passed.
+		String domain = urls[0];
+		String pathAndQuery = urls[1];
+
+		String apiUrlStr = domain + "api/" + pathAndQuery;
+		String errorUrlStr = domain + pathAndQuery + "&status=not_found";
+		System.out.println("step1");
+		// Open stream and convert to JSON.
 		try {
-			// API URL is the first and only one passed.
-			String domain = urls[0];
-			String pathAndQuery = urls[1];
-
-			String apiUrlStr = domain + "api/" + pathAndQuery;
-			String errorUrlStr = domain + pathAndQuery + "&status=not_found";
-
+			System.out.println("step2");
 			URL apiUrl = new URL(apiUrlStr);
-
-			// Open stream and convert to JSON.
 			InputStream inputStream = apiUrl.openStream();
 			String jsonStr = convertStreamToString(inputStream);
 			JSONObject json = new JSONObject(jsonStr);
-
 			// Check if found.
 			boolean found = json.getJSONObject("status").getBoolean("found");
 
@@ -58,28 +61,35 @@ public class SendQuery extends AsyncTask<String, Void, String> {
 			} else {
 				return errorUrlStr;
 			}
+
+		} catch (java.net.UnknownHostException e) {
+			return "";
 		} catch (Exception e) {
-			e.printStackTrace();
-			return null;
+			return "";
 		}
+
 	}
 
 	/**
 	 * Send the intent.
 	 */
 	protected void onPostExecute(String shortcutUrl) {
-
 		super.onPostExecute(shortcutUrl);
+		Button searchSubmit = (Button) mainView.findViewById(R.id.searchSubmit);
 
-		Intent intent = new Intent(Intent.ACTION_VIEW); //
-		intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-		intent.setData(Uri.parse(shortcutUrl));
+		if (shortcutUrl != "") {
+			super.onPostExecute(shortcutUrl);
 
-		context.startActivity(intent);
+			Intent intent = new Intent(Intent.ACTION_VIEW); //
+			intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+			intent.setData(Uri.parse(shortcutUrl));
 
-		Button searchSubmit = (Button) mainView
-				.findViewById(R.id.searchSubmit);
-		searchSubmit.setText("Go");
+			context.startActivity(intent);
+			searchSubmit.setText("Go");
+		} else {
+			searchSubmit.setText("No Internet!");
+		}
+
 	}
 
 	/**
