@@ -7,7 +7,7 @@
     <string name="comma">,</string>
     <string name="clear">clear</string>
     <string name="hintSearchInput"></string>    
-    <string name="pref_version_title">User name</string>
+    <string name="pref_version_title">Version</string>
     <string name="pref_version_summary">0.1</string>
     <string name="pref_user_name_title">User name</string>
     <string name="pref_user_name_summary">Leave blank if you have no user account</string>
