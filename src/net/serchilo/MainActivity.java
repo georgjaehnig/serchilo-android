@@ -322,6 +322,7 @@ public class MainActivity extends Activity {
 		} else {
 			pathAndQuery += "u/" + userName + "?";
 		}
+		pathAndQuery += "source=android-app&";
 		try {
 			pathAndQuery += "query=" + URLEncoder.encode(query, "UTF-8");
 		} catch (UnsupportedEncodingException e) {
